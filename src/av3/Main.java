@@ -19,14 +19,27 @@ public class Main {
 				
 				System.out.println("JOGADOR 2 - O que deseja fazer?");
 				Turn.playerAction(p2, p1);
+				
+				if (p2.getHealth() <= 0) {
+					System.out.println("Jogador 2 está morto, fim de jogo!");
+					break;
+				}
+				
 			} else {
 				System.out.println("JOGADOR 2 - O que deseja fazer?");
 				Turn.playerAction(p2, p1);
 				
 				System.out.println("JOGADOR 1 - O que deseja fazer?");
 				Turn.playerAction(p1, p2);
-			}
 				
+				if (p1.getHealth() <= 0) {
+					System.out.println("Jogador 1 está morto, fim de jogo!");
+					break;
+				}
+			}
+			
+			Turn.passTurn(p1);
+			Turn.passTurn(p2);
 		}
 
 

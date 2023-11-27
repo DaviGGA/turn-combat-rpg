@@ -10,6 +10,11 @@ public abstract class Entity {
 	protected int hit;
 	protected int speed;
 	
+	protected String s1Name;
+	protected String s2Name;
+	protected int s1CD;
+	protected int s2CD;
+	
 	protected ArrayList<Effect> effects;
 	
 	public Entity(int health,int maxHealth, int armor, int damage, int hit, int speed) {
@@ -23,7 +28,7 @@ public abstract class Entity {
 	}
 	
 	public void normalAttack(Entity enemy) {
-		System.out.println("Você utilizou um ataque normal.");
+		System.out.println("Você utilizou um ataque normal.\n");
 		
 		int totalDamage = this.getTotalDamage();
 		int totalHit = this.getTotalHit();
@@ -41,9 +46,9 @@ public abstract class Entity {
 			int damageRoll = Dice.roll(maxDamage, damage);	
 			enemy.takeDamage(damageRoll);
 			
-			System.out.println("Seu golpe causou " + damageRoll + " de dano.");
+			System.out.println("Seu golpe causou " + damageRoll + " de dano.\n");
 		} else {
-			System.out.println("Você errou seu ataque!");			
+			System.out.println("Você errou seu ataque!\n");			
 		}
 	}
 	
@@ -175,4 +180,42 @@ public abstract class Entity {
 	public void setEffects(ArrayList<Effect> effects) {
 		this.effects = effects;
 	}
+	
+	public int getS1CD() {
+		return s1CD;
+	}
+
+	public void setS1CD(int s1cd) {
+		s1CD = s1cd;
+	}
+
+	public int getS2CD() {
+		return s2CD;
+	}
+
+	public void setS2CD(int s2cd) {
+		s2CD = s2cd;
+	}
+
+	public String getS1Name() {
+		return s1Name;
+	}
+
+	public void setS1Name(String s1Name) {
+		this.s1Name = s1Name;
+	}
+
+	public String getS2Name() {
+		return s2Name;
+	}
+
+	public void setS2Name(String s2Name) {
+		this.s2Name = s2Name;
+	}
+	
+	public abstract void firstSkill(Entity enemy);
+	public abstract void secondSkill(Entity enemy);
+	
+	public abstract void decreaseS1Cooldown();
+	public abstract void decreaseS2Cooldown();
 }

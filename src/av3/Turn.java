@@ -12,16 +12,13 @@ public class Turn {
 		
 		p.getEffects().removeIf(e -> e.getDuration() <= 0);
 		
+		decreaseSkillCDR(p);
 		
 	}
 	
-	public static void decreaseSkillCDR(Entity p) {
-		if (p instanceof Warrior) {
-			Warrior warrior = (Warrior)p;
-			
-			warrior.decreaseFlameBladeCooldown();
-			warrior.decreaseSecondWindCooldown();
-		}
+	private static void decreaseSkillCDR(Entity p) {
+		p.decreaseS1Cooldown();
+		p.decreaseS2Cooldown();
 	}
 	
 	public static void playerStatus(Entity p1, Entity p2) {
@@ -33,8 +30,11 @@ public class Turn {
 	
 	public static void playerAction(Entity attacker, Entity defender) {
 		System.out.println("1 - Atacar");
-		System.out.println("2 - " + getFirstSkillName(attacker));
-		System.out.println("3 - " + getSecondSkillName(attacker));
+		System.out.println("2 - " + attacker.getS1Name() + skillReadyin(attacker.getS1CD()));
+		System.out.println("3 - " + attacker.getS2Name() + skillReadyin(attacker.getS2CD()));
+		
+		printPlayerAttributes(attacker);
+		
 		
 		int choice = sc.nextInt();
 		 	
@@ -43,43 +43,32 @@ public class Turn {
 				attacker.normalAttack(defender);
 				break;
 			case 2:
-				useFirstSkill(attacker, defender);
+				attacker.firstSkill(defender);
 				break;
 			case 3:
-				useSecondSkill(attacker, defender);
+				attacker.secondSkill(defender);
 				break;
 		}
 	}
 	
-	private static void useFirstSkill(Entity attacker, Entity defender) {
-		if (attacker instanceof Warrior) {
-			Warrior warrior = (Warrior) attacker;
-			warrior.flameBlade(defender);
-		}
+	private static void printPlayerAttributes(Entity p) {
+		System.out.println("\n");
+		System.out.println("Status:");
+		System.out.println("Armadura: " + p.getTotalArmor());
+		System.out.println("Velocidade: " + p.getTotalSpeed());
+		System.out.println("Dano: " + p.getTotalDamage());
+		System.out.println("Acerto: " + p.getTotalHit());
 	}
 	
-	private static void useSecondSkill(Entity attacker, Entity defender) {
-		if (attacker instanceof Warrior) {
-			Warrior warrior = (Warrior) attacker;
-			warrior.secondWind();
+	private static String skillReadyin(int skillCD) {
+		if (skillCD == 0) {
+			return " Hab. pronta";
 		}
+		
+		return " Hab. pronta em " + skillCD + " turnos"; 
 	}
 	
-	private static String getFirstSkillName(Entity e) {
-		if (e instanceof Warrior) {
-			return "Espada flamejante";
-		} else {
-			return "";
-		}
-	}
-	
-	private static String getSecondSkillName(Entity e) {
-		if (e instanceof Warrior) {
-			return "Ventos Revigorantes";
-		} else {
-			return "";
-		}
-	}
+
 	
 	
 }
