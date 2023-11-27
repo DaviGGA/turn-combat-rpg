@@ -5,7 +5,7 @@ public class Warrior extends Entity implements Skills {
 
 	
 	public Warrior() {
-		super(16, 16, 16, 2, 2, 1);
+		super(16, 16, 14, 2, 4, 1);
 		s1Name = "Espada flamejante";
 		s2Name = "Revigorar";
 		s1CD = 0;
