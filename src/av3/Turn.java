@@ -1,4 +1,5 @@
 package av3;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Turn {
@@ -28,27 +29,36 @@ public class Turn {
 		System.out.println("========================");
 	}
 	
-	public static void playerAction(Entity attacker, Entity defender) {
+	public static void playerAction(Entity attacker, Entity defender) throws InvalidOptionException, IOException {
 		System.out.println("1 - Atacar");
 		System.out.println("2 - " + attacker.getS1Name() + skillReadyin(attacker.getS1CD()));
 		System.out.println("3 - " + attacker.getS2Name() + skillReadyin(attacker.getS2CD()));
 		
 		printPlayerAttributes(attacker);
 		
-		
-		int choice = sc.nextInt();
-		 	
-		switch (choice) {
-			case 1:
-				attacker.normalAttack(defender);
-				break;
-			case 2:
-				attacker.firstSkill(defender);
-				break;
-			case 3:
-				attacker.secondSkill(defender);
-				break;
+		try {
+			chooseSkill(attacker, defender);
+		} catch(InvalidOptionException e) {
+			System.out.println("Você utilizou uma opção que não existe");
+			chooseSkill(attacker, defender);
 		}
+
+	}
+	
+	public static void chooseSkill(Entity attacker, Entity defender) throws InvalidOptionException, IOException {
+		int choice = sc.nextInt();
+	 	
+		if (choice == 1) {
+			attacker.normalAttack(defender);
+		} else if (choice == 2) {
+			attacker.firstSkill(defender);
+		} else if (choice == 3) {
+			attacker.secondSkill(defender);
+		} else {
+			throw new InvalidOptionException();
+		}
+		
+		
 	}
 	
 	private static void printPlayerAttributes(Entity p) {

@@ -1,8 +1,8 @@
 package av3;
 
-public class Warrior extends Entity implements Skills {
-	
+import java.io.IOException;
 
+public class Warrior extends Entity implements Skills {
 	
 	public Warrior() {
 		super(16, 16, 14, 2, 4, 1);
@@ -13,25 +13,30 @@ public class Warrior extends Entity implements Skills {
 	}
 	
 	@Override // Causa +2 de dano e tem +2 de acerto no ataque
-	public void firstSkill(Entity enemy) {
+	public void firstSkill(Entity enemy) throws IOException {
 		if (s1CD > 0) {
 			System.out.println("Essa habilidade ainda está em recarga.\n");
 			return;
 		}
 		
-		System.out.println("Você utilizou espada flamejante.\n");
-		this.attack(enemy, 6, this.damage, this.hit + 2);
+		String flameBladeMessage = "Você utilizou espada flamejante.\n";
+		System.out.println(flameBladeMessage);
+		Log.registerLine(flameBladeMessage);
+		
+		this.attack(enemy, 6, this.getTotalDamage() + 2, this.getTotalHit() + 2);
 		this.s1CD = 3;
 	}
 
 	@Override // Cura 1d4 de vida e concede +1 de armadura durante 2 turnos;
-	public void secondSkill(Entity enemy) {
+	public void secondSkill(Entity enemy) throws IOException {
 		if (s2CD > 0) {
 			System.out.println("Essa habilidade ainda está em recarga.\n");
 			return;
 		}
 		
-		System.out.println("Você utilizou ventos revigorantes.\n");
+		String secondWindMessage = "Você utilizou ventos revigorantes.\n";
+		System.out.println(secondWindMessage);
+		Log.registerLine(secondWindMessage);
 		
 		int healRoll = Dice.roll(4, 0);
 		this.healDamage(healRoll);
@@ -41,7 +46,9 @@ public class Warrior extends Entity implements Skills {
 		
 		this.s2CD = 15;
 		
-		System.out.println("Você curou " + healRoll + " de vida.\n");
+		String healMessage = "Você curou " + healRoll + " de vida.\n";
+		System.out.println(healMessage);
+		Log.registerLine(healMessage);
 	}
 	
 	@Override
@@ -61,17 +68,5 @@ public class Warrior extends Entity implements Skills {
 			s2CD = 0;
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-	
 
 }

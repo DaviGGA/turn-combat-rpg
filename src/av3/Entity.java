@@ -1,5 +1,6 @@
 package av3;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Entity {
@@ -27,8 +28,10 @@ public abstract class Entity {
 		effects = new ArrayList<Effect>();
 	}
 	
-	public void normalAttack(Entity enemy) {
-		System.out.println("Você utilizou um ataque normal.\n");
+	public void normalAttack(Entity enemy) throws IOException {
+		String attackMessage = "Você utilizou um ataque normal.\n";
+		System.out.println(attackMessage);
+		Log.registerLine(attackMessage);
 		
 		int totalDamage = this.getTotalDamage();
 		int totalHit = this.getTotalHit();
@@ -41,14 +44,19 @@ public abstract class Entity {
 		);
 	}
 
-	public void attack(Entity enemy, int maxDamage, int damage, int hitChance) {
+	public void attack(Entity enemy, int maxDamage, int damage, int hitChance) throws IOException {
 		if (this.hasHit(enemy, hitChance)) {
 			int damageRoll = Dice.roll(maxDamage, damage);	
 			enemy.takeDamage(damageRoll);
 			
-			System.out.println("Seu golpe causou " + damageRoll + " de dano.\n");
+			String damageMessage = "Seu golpe causou " + damageRoll + " de dano.\n";
+			System.out.println(damageMessage);
+			Log.registerLine(damageMessage);
+			
 		} else {
-			System.out.println("Você errou seu ataque!\n");			
+			String missAttackMessage = "Você errou seu ataque!\n";
+			System.out.println(missAttackMessage);
+			Log.registerLine(missAttackMessage);			
 		}
 	}
 	
@@ -213,8 +221,8 @@ public abstract class Entity {
 		this.s2Name = s2Name;
 	}
 	
-	public abstract void firstSkill(Entity enemy);
-	public abstract void secondSkill(Entity enemy);
+	public abstract void firstSkill(Entity enemy) throws IOException;
+	public abstract void secondSkill(Entity enemy) throws IOException;
 	
 	public abstract void decreaseS1Cooldown();
 	public abstract void decreaseS2Cooldown();
