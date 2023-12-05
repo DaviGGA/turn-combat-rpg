@@ -1,7 +1,11 @@
-package av3;
+package Entities;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import av3.Dice;
+import av3.Effect;
+import av3.Log;
 
 public abstract class Entity {
 	protected int health;

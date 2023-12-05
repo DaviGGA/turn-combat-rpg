@@ -2,6 +2,8 @@ package av3;
 import java.io.IOException;
 import java.util.Scanner;
 
+import Entities.Entity;
+
 public class Turn {
 	public static Scanner sc = new Scanner(System.in);
 
@@ -36,27 +38,30 @@ public class Turn {
 		
 		printPlayerAttributes(attacker);
 		
-		try {
-			chooseSkill(attacker, defender);
-		} catch(InvalidOptionException e) {
-			System.out.println("Você utilizou uma opção que não existe");
-			chooseSkill(attacker, defender);
-		}
+		chooseSkill(attacker, defender);
 
 	}
 	
 	public static void chooseSkill(Entity attacker, Entity defender) throws InvalidOptionException, IOException {
 		int choice = sc.nextInt();
-	 	
-		if (choice == 1) {
-			attacker.normalAttack(defender);
-		} else if (choice == 2) {
-			attacker.firstSkill(defender);
-		} else if (choice == 3) {
-			attacker.secondSkill(defender);
-		} else {
-			throw new InvalidOptionException();
+		
+		try {
+			if (choice == 1) {
+				attacker.normalAttack(defender);
+			} else if (choice == 2) {
+				attacker.firstSkill(defender);
+			} else if (choice == 3) {
+				attacker.secondSkill(defender);
+			} else {
+				throw new InvalidOptionException();
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Você utilizou uma opção que não existe");
+			chooseSkill(attacker, defender);
 		}
+	 	
+
 		
 		
 	}

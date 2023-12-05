@@ -2,12 +2,16 @@ package av3;
 
 import java.io.IOException;
 
+import Entities.Entity;
+
 public class Main {
 
 	public static void main(String[] args) throws InvalidOptionException, IOException {
+		System.out.println("J1 - Escolha sua classe");
+		Entity p1 = ClassFactory.createClass();
 		
-		Warrior p1 = new Warrior();
-		Rogue p2 = new Rogue();
+		System.out.println("J2 - Escolha sua classe");
+		Entity p2 = ClassFactory.createClass();
 		
 		String j1GameOver = "Jogador 1 está morto, fim de jogo!\n";
 		String j2GameOver = "Jogador 2 está morto, fim de jogo!\n";

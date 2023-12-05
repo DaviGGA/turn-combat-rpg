@@ -1,6 +1,10 @@
-package av3;
+package Entities;
 
 import java.io.IOException;
+
+import av3.Effect;
+import av3.Log;
+import av3.Skills;
 
 public class Mage extends Entity implements Skills {
 	public Mage() {
