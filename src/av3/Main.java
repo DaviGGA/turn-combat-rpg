@@ -7,6 +7,8 @@ import Entities.Entity;
 public class Main {
 
 	public static void main(String[] args) throws InvalidOptionException, IOException {
+		Log.clearLog();
+		
 		System.out.println("J1 - Escolha sua classe");
 		Entity p1 = ClassFactory.createClass();
 		

@@ -11,4 +11,10 @@ public class Log {
 		fileWriter.write(line);
 		fileWriter.close();
 	}
+	
+	public static void clearLog() throws IOException {
+		FileWriter fileWriter = new FileWriter("battle-log.txt");
+		fileWriter.write("");
+		fileWriter.close();
+	}
 }
